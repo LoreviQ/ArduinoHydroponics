@@ -2,7 +2,7 @@
 
 #define DHTPIN1 2
 
-DHT dht = (DHTPIN1, DHT22);
+DHT dht (DHTPIN1, DHT22);
 
 float humidity;
 float temperature;
