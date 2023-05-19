@@ -9,7 +9,7 @@ DHT dht = (DHT_PIN, DHT22);
 float humidity;
 float temperature;
 int lightValue;
-float modLight;
+float ResistanceLight;
 
 void setup()
 {
@@ -20,7 +20,7 @@ void setup()
 void loop()
 {
   lightValue = analogRead(0);
-  modLight=(1023-sensorValue)*10/sensorValue;
+  ResistanceLight=(1023-sensorValue)*10/sensorValue;
   temperature = dht.readTemperature();
   humidity = dht.readHumidity();
 
@@ -36,7 +36,7 @@ void loop()
   Serial.print("the analog read data is ");
   Serial.print(sensorValue);
   Serial.print("the sensor resistance is ");
-  Serial.println(Rsensor,DEC);
+  Serial.println(ResistanceLight,DEC);
 
   delay(10000);
 }
