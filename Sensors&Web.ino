@@ -92,32 +92,29 @@ void showIP() {
 }
 
 //Define the process for sending AT commands to module
-void establishConnection(String command, int timeOut) { 
-  int q = 0;
-  while (1) {
+int establishConnection(String command, int timeOut) { 
+  for (int i = 0; i < 5; i++) {
     Serial.println(command);
     comm.println(command);
     while (comm.available()) {
       if (comm.find("OK")) {
-        q = 8;
+        Serial.println("OK");
+        return 1;
       }
     }
     delay(timeOut);
-    if (q > 5) {
-      break;
-    }
-    q++;
   }
-  if (q == 8) {
-    Serial.println("OK");
-  } else {
-    Serial.println("Error");
+  Serial.println("Error");
+  return 0;
   }
 }
 
 //send AT commands to module
-void wifi_init() { 
-  establishConnection("AT", 100);
+int wifi_init() { 
+  if (!establishConnection("AT", 100)) {
+    Serial.println("Error connecting to ESP-01S");
+    return 0;
+  }
   delay(1000);
   establishConnection("AT+CWMODE=3", 100);
   delay(1000);
@@ -134,6 +131,7 @@ void wifi_init() {
   showIP();
   establishConnection("AT+CIPMUX=1", 100);
   establishConnection("AT+CIPSERVER=1,80", 100);
+  return 1;
 }
 
 //send data to module
