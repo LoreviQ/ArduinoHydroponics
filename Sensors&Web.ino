@@ -17,6 +17,7 @@ float humidity;
 float temperature;
 int lightValue;
 float lightRes;
+DHT dht (DHT_PIN, DHT22);
 
 // Website
 String webdata[];
@@ -174,7 +175,7 @@ void sendToServer() {
   }
   webLen = sizeof(webdata) / sizeof(webdata[0]) ;
   server = "";
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < webLen; i++) {
     server += webdata[i];
   }
   sendData(server);
