@@ -20,8 +20,8 @@ float lightRes;
 DHT dht (DHT_PIN, DHT22);
 
 // Website
-String webdata[];
-int webLen;
+String webdata[6];
+int webLen = 6;
 
 void setup() {
   Serial.begin(9600);
@@ -173,7 +173,6 @@ void sendToServer() {
     "<p>The Light Value (Analog Read) is: " + String(lightValue) + "</p>",
     "<p>The Light Sensor Resistance is: " + String(lightRes) + "Ω</p>"
   }
-  webLen = sizeof(webdata) / sizeof(webdata[0]) ;
   server = "";
   for (int i = 0; i < webLen; i++) {
     server += webdata[i];
