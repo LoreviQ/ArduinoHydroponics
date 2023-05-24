@@ -26,7 +26,7 @@ void setup() {
   Serial.begin(9600);
   comm.begin(9600);
   dht.begin();
-  wifi_init();
+  if (!wifi_init()) {stop()};
   Serial.println("System Ready..");
 }
 
@@ -113,7 +113,7 @@ int wifi_init() {
   if (!establishConnection("AT", 100)) {
     Serial.println("Error connecting to ESP-01S");
     return 0;
-  }
+  };
   delay(1000);
   establishConnection("AT+CWMODE=3", 100);
   delay(1000);
@@ -180,4 +180,9 @@ void readSensors() {
   temperature = dht.readTemperature();
   humidity = dht.readHumidity();
   delay(5000);
+}
+
+// stops execution on failstate
+void stop() {
+  while(1);
 }
