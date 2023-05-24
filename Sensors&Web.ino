@@ -20,8 +20,7 @@ float lightRes;
 DHT dht (DHT_PIN, DHT22);
 
 // Website
-String webdata[6];
-int webLen = 6;
+String webdata;
 
 void setup() {
   Serial.begin(9600);
@@ -165,19 +164,14 @@ void sendData(String data) {
 
 //send data to webpage 
 void sendToServer() { 
-  webdata[] = {
-    "<p>I am Arduino</p>",
-    "<p>Data Received Successfully.....</p>",
-    "<p>The Humidity is: " + String(humidity) + "%</p>",
-    "<p>The Temperature is: " + String(temperature) + "°C</p>",
-    "<p>The Light Value (Analog Read) is: " + String(lightValue) + "</p>",
-    "<p>The Light Sensor Resistance is: " + String(lightRes) + "Ω</p>"
-  }
-  server = "";
-  for (int i = 0; i < webLen; i++) {
-    server += webdata[i];
-  }
-  sendData(server);
+  webdata =
+    "<p>I am Arduino</p>" +
+    "<p>Data Received Successfully.....</p>" + 
+    "<p>The Humidity is: " + String(humidity) + "%</p>" +
+    "<p>The Temperature is: " + String(temperature) + "°C</p>" +
+    "<p>The Light Value (Analog Read) is: " + String(lightValue) + "</p>" +
+    "<p>The Light Sensor Resistance is: " + String(lightRes) + "Ω</p>";
+  sendData(webdata);
   delay(5000);
   comm.println("AT+CIPCLOSE=0");
 }
