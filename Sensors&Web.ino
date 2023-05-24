@@ -24,7 +24,7 @@ String webdata;
 
 void setup() {
   Serial.begin(9600);
-  comm.begin(115200);
+  comm.begin(9600);
   dht.begin();
   if (!wifi_init()) {stop();};
   Serial.println("System Ready..");
