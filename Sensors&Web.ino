@@ -26,7 +26,7 @@ void setup() {
   Serial.begin(9600);
   comm.begin(115200);
   dht.begin();
-  if (!wifi_init()) {stop()};
+  if (!wifi_init()) {stop();};
   Serial.println("System Ready..");
 }
 
