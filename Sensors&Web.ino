@@ -128,7 +128,7 @@ void wifi_init() {
   findIp(5000);
   if (!No_IP) {
     Serial.println("Connecting Wifi....");
-    establishConnection("AT+CWJAP=\"" + ssid + "\",\"" + password + "\"", 7000);
+    establishConnection(String("AT+CWJAP=\"") + ssid + String("\",\"") + password + String("\""), 7000);
   } else {}
   Serial.println("Wifi Connected");
   showIP();
@@ -165,12 +165,12 @@ void sendData(String data) {
 //send data to webpage 
 void sendToServer() { 
   webdata =
-    "<p>I am Arduino</p>" +
-    "<p>Data Received Successfully.....</p>" + 
-    "<p>The Humidity is: " + String(humidity) + "%</p>" +
-    "<p>The Temperature is: " + String(temperature) + "°C</p>" +
-    "<p>The Light Value (Analog Read) is: " + String(lightValue) + "</p>" +
-    "<p>The Light Sensor Resistance is: " + String(lightRes) + "Ω</p>";
+    String("<p>I am Arduino</p>") +
+    String("<p>Data Received Successfully.....</p>") + 
+    String("<p>The Humidity is: ") + String(humidity) + String("%</p>") +
+    String("<p>The Temperature is: ") + String(temperature) + String("°C</p>") +
+    String("<p>The Light Value (Analog Read) is: ") + String(lightValue) + String("</p>") +
+    String("<p>The Light Sensor Resistance is: ") + String(lightRes) + String("Ω</p>");
   sendData(webdata);
   delay(5000);
   comm.println("AT+CIPCLOSE=0");
