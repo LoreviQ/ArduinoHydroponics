@@ -8,6 +8,8 @@
 SoftwareSerial comm(12, 13); //setting Tx and Rx pins
 
 // Creating variables
+String ssid = "";
+String password = "";
 boolean No_IP = false; //variable to check for ip Address
 String server; //variable for sending data to webpage
 String IP; //variable to store ip Address
@@ -45,8 +47,8 @@ void loop() {
   }
 }
 
-
-void findIp(int time1) { //check for the availability of IP Address
+//check for the availability of IP Address
+void findIp(int time1) { 
   int time2 = millis();
   while (time2 + time1 > millis()) {
     while (comm.available() > 0) {
@@ -57,7 +59,8 @@ void findIp(int time1) { //check for the availability of IP Address
   }
 }
 
-void showIP() { //Display the IP Address
+//Display the IP Address
+void showIP() { 
   IP = "";
   char ch = 0;
   while (1) {
@@ -88,7 +91,8 @@ void showIP() { //Display the IP Address
   Serial.println(80);
 }
 
-void establishConnection(String command, int timeOut) { //Define the process for sending AT commands to module
+//Define the process for sending AT commands to module
+void establishConnection(String command, int timeOut) { 
   int q = 0;
   while (1) {
     Serial.println(command);
@@ -111,7 +115,8 @@ void establishConnection(String command, int timeOut) { //Define the process for
   }
 }
 
-void wifi_init() { //send AT commands to module
+//send AT commands to module
+void wifi_init() { 
   establishConnection("AT", 100);
   delay(1000);
   establishConnection("AT+CWMODE=3", 100);
@@ -123,7 +128,7 @@ void wifi_init() { //send AT commands to module
   findIp(5000);
   if (!No_IP) {
     Serial.println("Connecting Wifi....");
-    establishConnection("AT+CWJAP=\"Apna lawao\",\"p4panama\"", 7000); //provide your WiFi username and password here
+    establishConnection("AT+CWJAP=\"" + ssid + "\",\"" + password + "\", 7000);
   } else {}
   Serial.println("Wifi Connected");
   showIP();
@@ -131,7 +136,8 @@ void wifi_init() { //send AT commands to module
   establishConnection("AT+CIPSERVER=1,80", 100);
 }
 
-void sendData(String data) { //send data to module
+//send data to module
+void sendData(String data) { 
   int p = 0;
   while (1) {
     unsigned int dataLen = data.length();
@@ -156,7 +162,8 @@ void sendData(String data) { //send data to module
   }
 }
 
-void sendToServer() { //send data to webpage 
+//send data to webpage 
+void sendToServer() { 
   webdata[] = {
     "<p>I am Arduino</p>",
     "<p>Data Received Successfully.....</p>",
@@ -175,7 +182,8 @@ void sendToServer() { //send data to webpage
   comm.println("AT+CIPCLOSE=0");
 }
 
-void readSensors() { //reads sensor data
+//reads sensor data
+void readSensors() {
   lightValue = analogRead(0);
   lightRes=(1023-lightValue)*10/lightValue;
   temperature = dht.readTemperature();
