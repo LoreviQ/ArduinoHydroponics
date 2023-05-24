@@ -128,7 +128,7 @@ void wifi_init() {
   findIp(5000);
   if (!No_IP) {
     Serial.println("Connecting Wifi....");
-    establishConnection("AT+CWJAP=\"" + ssid + "\",\"" + password + "\", 7000);
+    establishConnection("AT+CWJAP=\"" + ssid + "\",\"" + password + "\"", 7000);
   } else {}
   Serial.println("Wifi Connected");
   showIP();
