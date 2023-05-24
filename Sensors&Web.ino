@@ -184,5 +184,6 @@ void readSensors() {
 
 // stops execution on failstate
 void stop() {
+  Serial.println("Code Execution Stopped");
   while(1);
 }
