@@ -106,7 +106,6 @@ int establishConnection(String command, int timeOut) {
   }
   Serial.println("Error");
   return 0;
-  }
 }
 
 //send AT commands to module
