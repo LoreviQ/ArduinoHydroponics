@@ -1,1 +1,4 @@
-#define GLOBAL "globalString"
+void printFunc()
+{
+    Serial.println("Hello World");
+}

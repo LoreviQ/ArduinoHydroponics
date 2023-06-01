@@ -1,5 +1,3 @@
-#define LOCAL "localString"
-
 void setup()
 {
     Serial.begin(115200);
@@ -7,6 +5,5 @@ void setup()
 
 void loop()
 {
-    Serial.println(LOCAL);
-    Serial.println(GLOBAL);
+    printFunc()
 }
