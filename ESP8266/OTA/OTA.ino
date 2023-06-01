@@ -2,27 +2,15 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
-#include <map>
 
 #define STASSID "ssid"
 #define STAPSK "password"
-
-const char *ssid = STASSID;
-const char *password = STAPSK;
-
-std::map<ota_error_t, String> errorMessages = {
-    {OTA_AUTH_ERROR, "Auth Failed"},
-    {OTA_BEGIN_ERROR, "Begin Failed"},
-    {OTA_CONNECT_ERROR, "Connect Failed"},
-    {OTA_RECEIVE_ERROR, "Receive Failed"},
-    {OTA_END_ERROR, "End Failed"}
-}
 
 void setup() {
     Serial.begin(115200);
     Serial.println("Booting");
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+    WiFi.begin(STASSID, STAPSK);
     while (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("Connection Failed! Rebooting...");
         delay(5000);
@@ -49,13 +37,12 @@ void setup() {
     });
     ArduinoOTA.onError( [] (ota_error_t error) {
         Serial.printf("Error[%u]: ", error);
-        Serial.println(errorMessages[error]);
     });
     ArduinoOTA.begin();
     Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-    Serial.println("This was prgrammed OTA - Version 2");
+    Serial.println("This was prgrammed OTA - Version 1.0.1");
 }
 
 void loop() {
