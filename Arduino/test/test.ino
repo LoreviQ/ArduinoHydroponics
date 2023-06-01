@@ -1,3 +1,6 @@
+String username;
+String password;
+
 void setup()
 {
     Serial.begin(115200);
@@ -5,5 +8,8 @@ void setup()
 
 void loop()
 {
-    printFunc()
+    delay(1000);
+    printFunc();
+    username = getUsername();
+    password = getPassword()
 }
