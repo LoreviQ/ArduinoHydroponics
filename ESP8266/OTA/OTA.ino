@@ -18,8 +18,7 @@ std::map<ota_error_t, String> errorMessages = {
     {OTA_END_ERROR, "End Failed"}
 }
 
-void setup()
-{
+void setup() {
     Serial.begin(115200);
     Serial.println("Booting");
     WiFi.mode(WIFI_STA);
@@ -59,7 +58,6 @@ void setup()
     Serial.println("This was prgrammed OTA - Version 2");
 }
 
-void loop()
-{
+void loop() {
     ArduinoOTA.handle();
 }
