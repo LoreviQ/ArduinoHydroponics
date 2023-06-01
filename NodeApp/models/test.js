@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const arduinoSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     name: String,
     SN: Number,
 });
