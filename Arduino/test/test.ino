@@ -11,5 +11,7 @@ void loop()
     delay(1000);
     printFunc();
     username = getUsername();
-    password = getPassword()
+    password = getPassword();
+    Serial.println(username);
+    Serial.println(password);
 }
