@@ -56,7 +56,7 @@ void setup()
     Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-    Serial.println("This was prgrammed OTA");
+    Serial.println("This was prgrammed OTA - Version 2");
 }
 
 void loop()
