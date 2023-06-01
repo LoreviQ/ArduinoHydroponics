@@ -8,7 +8,6 @@ void setup()
 void loop()
 {
     delay(1000);
-    printFunc();
     username = getUsername();
     password = getPassword();
     Serial.println(username);
