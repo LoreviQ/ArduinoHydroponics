@@ -1,8 +1,3 @@
-void printFunc()
-{
-    Serial.println("Hello World");
-}
-
 String getUsername()
 {
     String username = "BT-9KAFCG";

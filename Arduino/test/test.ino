@@ -1,5 +1,4 @@
-String username;
-String password;
+String username, password;
 
 void setup()
 {
