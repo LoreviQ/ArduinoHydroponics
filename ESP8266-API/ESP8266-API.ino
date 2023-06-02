@@ -4,6 +4,7 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include <WiFiClient.h>
+#include <env.h>
 
 void setup() {
     Serial.begin(115200);
