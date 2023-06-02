@@ -16,14 +16,15 @@ void OTASetup() {
         Serial.println("\nEnd"); 
     });
     ArduinoOTA.onProgress( [] (unsigned int progress, unsigned int total) { 
-        Serial.println("Progress: %u%%\r", (progress / (total / 100))); 
+        Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+        Serial.println();
     });
     ArduinoOTA.onError( [] (ota_error_t error) {
-        Serial.println("Error[%u]: ", error);
+        Serial.printf("Error[%u]: ", error);
     });
     ArduinoOTA.begin();
     Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-    Serial.println("This was prgrammed OTA - Version 1.0.2");
+    Serial.println("This was prgrammed OTA - Version 1.1.3");
 }
