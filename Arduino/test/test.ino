@@ -1,4 +1,4 @@
-String username, password;
+#include <env.h>
 
 void setup()
 {
@@ -8,8 +8,6 @@ void setup()
 void loop()
 {
     delay(1000);
-    username = getUsername();
-    password = getPassword();
-    Serial.println(username);
-    Serial.println(password);
+    Serial.println(SSID);
+    Serial.println(PASSWORD);
 }
