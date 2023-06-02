@@ -1,7 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
+#include <ESP8266HTTPClient.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+#include <WiFiClient.h>
 
 void setup() {
     Serial.begin(115200);
