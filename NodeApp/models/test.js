@@ -18,7 +18,7 @@ const sensorSchema = new Schema({
     arduinoID: Schema.Types.ObjectId
 });
 
-const Arduino = mongoose.model("arduinos", arduinoSchema);
-const Sensor = mongoose.model("sensors", sensorSchema);
+const Arduino = mongoose.model("Arduino", arduinoSchema);
+const Sensor = mongoose.model("Sensor", sensorSchema);
 
 module.exports = { Arduino, Sensor };

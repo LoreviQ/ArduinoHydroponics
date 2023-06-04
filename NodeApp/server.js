@@ -39,7 +39,7 @@ app.post("/setup", async (req, res) => {
     }
 });
 
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", true);
 mongoose
     .connect("mongodb://testUser:testPassword@localhost:27017/test", { useNewUrlParser: true })
     .then(() => {
