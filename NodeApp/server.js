@@ -15,12 +15,17 @@ app.get("/", (req, res) => {
 app.post("/setup", async (req, res) => {
     try {
         var arduinoJSON = req.body.arduino;
-        var arduino = await Arduino.find({'name' : arduinoJSON.name}).exec();
+        var arduinoID = await Arduino.find({'name' : arduinoJSON.name}).exec();
+        if (arduinoID) {
+            arduinoID = arduinoID._id;
+        } else {
+            arduinoID = "noID";
+        }
         //const arduino = await Arduino.create(req.body.arduino);
 
         //var sensorsJSON = req.body.sensors;
         //const sensors = await Sensor.insertMany(req.body.sensors);
-        res.status(200).json(arduino);
+        res.status(200).json(arduinoID);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
