@@ -26,7 +26,7 @@ app.post("/setup", async (req, res) => {
         for (const sensorJSON of sensorsJSON) {
             sensorsJSON.arduinoID = arduinoID;
             var sensor = await Sensor.find({'name' : sensorJSON.name, 'arduinoID' : sensorJSON.arduinoID}).exec()[0];
-            if (sensor.length === 0) {
+            if (!sensor) {
                 sensor = await Sensor.create(sensorJSON);
             }
             ids.push(ids);
