@@ -16,6 +16,7 @@ app.post("/setup", async (req, res) => {
     try {
         var arduinoJSON = req.body.arduino;
         var arduinoID = await Arduino.find({'name' : arduinoJSON.name}).exec();
+        console.log(arduinoID);
         if (arduinoID) {
             arduinoID = arduinoID._id;
         } else {
