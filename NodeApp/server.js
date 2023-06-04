@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 app.post("/setup", async (req, res) => {
     try {
         var arduinoJSON = req.body.arduino;
-        var arduinoFind = await Arduino.find({'name' : arduinoJSON.name}).exec()[0];
+        var arduinoFind = await Arduino.find({'name' : arduinoJSON.name}).exec();
         /*
         if (!arduinoFind) {
             var arduino = await Arduino.create(arduinoJSON);
