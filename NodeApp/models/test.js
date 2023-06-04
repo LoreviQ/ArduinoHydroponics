@@ -11,8 +11,8 @@ const arduinoSchema = new Schema({
 const sensorSchema = new Schema({
     sensorType: String,
     pin: Number,
-    variables: String,
-    units: String,
+    variable: String,
+    unit: String,
     description: String
 });
 
