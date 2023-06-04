@@ -12,6 +12,8 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
+// Setup endpoint that arduino calls on boot.
+// Returns array of ids corresponding to the Arduino and Sensor
 app.post("/setup", async (req, res) => {
     try {
         // Arduino
@@ -33,7 +35,6 @@ app.post("/setup", async (req, res) => {
             }
             ids.push(sensor._id);
         }
-        //const sensors = await Sensor.insertMany(req.body.sensors);
         res.status(200).json(ids);
     } catch (error) {
         console.log(error.message);
