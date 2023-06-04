@@ -5,31 +5,38 @@
 #include <ArduinoOTA.h>
 #include <WiFiClient.h>
 #include <ArduinoJson.h>
+#include <serialStr.h>
 #include "API-Handler.h"
 #include "env.h"
 
 APIHandler API("http://35.176.73.55/");
+serialStr strReader;
+int now = millis(), timer = millis();
 
 void setup() {
-  Serial.begin(115200);
+  strReader.setCallback(serialHandler);
+  Serial.begin(74880);
   Serial.println("\nBooting");
   wifiConnect();
   OTASetup();
 }
 
 void loop() {
+  idle();
   ArduinoOTA.handle();
-  delay(5000);
-  
-  String getResponse = API.get("");
-  Serial.println(getResponse);
-
-  StaticJsonDocument<48> doc;
-  doc["name"] = String("Arduino") + String(random(100,1000));
-  doc["SN"] = String(random(1000,10000));
-  String body;
-  serializeJson(doc, body);
-  String postResponse = API.post("", body);
-  Serial.println(postResponse);
 }
- 
+
+void serialHandler(char* inStr) {
+  Serial.println(String("Recieved : ") + String(inStr));
+  StaticJsonDocument<64> command;
+  DeserializationError err = deserializeJson(command, inStr);
+  if (err) {
+    Serial.print(F("deserializeJson() failed with code "));
+    Serial.println(err.f_str());
+  }
+  if (command["method"] == "GET") {
+    String response = API.get(command["endpoint"]);
+    Serial.println("Printing response from Server");
+    Serial.println(response);
+  }
+}
