@@ -14,8 +14,8 @@ app.get("/", (req, res) => {
 
 app.post("/setup", async (req, res) => {
     try {
-        const arduino = await Arduino.create(res.body.arduino);
-        const sensors = await Sensor.insertMany(res.body.sensors);
+        const arduino = await Arduino.create(req.body.arduino);
+        const sensors = await Sensor.insertMany(req.body.sensors);
         res.status(200).json(sensors);
     } catch (error) {
         console.log(error.message);
