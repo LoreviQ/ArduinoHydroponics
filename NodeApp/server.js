@@ -29,7 +29,7 @@ app.post("/setup", async (req, res) => {
             if (!sensor) {
                 sensor = await Sensor.create(sensorJSON);
             }
-            ids.push(ids);
+            ids.push(arduinoID);
         }
         //const sensors = await Sensor.insertMany(req.body.sensors);
         res.status(200).json(arduino);
