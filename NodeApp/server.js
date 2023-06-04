@@ -15,17 +15,13 @@ app.get("/", (req, res) => {
 app.post("/setup", async (req, res) => {
     try {
         var arduinoJSON = req.body.arduino;
-        var arduinoFind = await Arduino.find({'name' : arduinoJSON.name}).exec();
-        arduinoFind = arduinoFind[0];
-        /*
-        if (!arduinoFind) {
+        var arduino = await Arduino.find({'name' : arduinoJSON.name}).exec();
+        arduino = arduino[0];
+        if (!arduino) {
             var arduino = await Arduino.create(arduinoJSON);
-        } else {
-            var arduino = arduinoFind;
         }
-        var arduinoID = arduino._id;
-        var ids = [arduinoID];
-        */
+        var ids = [arduino._id];
+
         /*
         var sensorsJSON = req.body.sensors;
         for (const sensorJSON of sensorsJSON) {
@@ -38,7 +34,7 @@ app.post("/setup", async (req, res) => {
         }
         //const sensors = await Sensor.insertMany(req.body.sensors);
         */
-        res.status(200).json(arduinoFind);
+        res.status(200).json(ids);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
