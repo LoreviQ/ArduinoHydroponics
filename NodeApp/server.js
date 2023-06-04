@@ -14,9 +14,13 @@ app.get("/", (req, res) => {
 
 app.post("/setup", async (req, res) => {
     try {
-        const arduino = await Arduino.create(req.body.arduino);
-        const sensors = await Sensor.insertMany(req.body.sensors);
-        res.status(200).json(sensors);
+        var arduinoJSON = req.body.arduino;
+        var query = Arduino.find({name : arduinoJSON.name});
+        //const arduino = await Arduino.create(req.body.arduino);
+
+        //var sensorsJSON = req.body.sensors;
+        //const sensors = await Sensor.insertMany(req.body.sensors);
+        res.status(200).json(query);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
