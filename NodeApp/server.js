@@ -15,18 +15,24 @@ app.get("/", (req, res) => {
 app.post("/setup", async (req, res) => {
     try {
         var arduinoJSON = req.body.arduino;
-        var arduinoID = await Arduino.find({'name' : arduinoJSON.name}).exec();
-        console.log(arduinoID);
-        if (arduinoID.length) {
-            arduinoID = arduinoID._id;
-        } else {
-            arduinoID = "noID";
+        var arduino = await Arduino.find({'name' : arduinoJSON.name}).exec();
+        if (arduino.length === 0) {
+            arduino = await Arduino.create(arduinoJSON);
         }
-        //const arduino = await Arduino.create(req.body.arduino);
-
-        //var sensorsJSON = req.body.sensors;
+        var arduinoID = arduino._id;
+        var ids = [arduinoID];
+        
+        var sensorsJSON = req.body.sensors;
+        for (const sensorJSON of sensorsJSON) {
+            sensorsJSON.arduinoID = arduinoID;
+            var sensor = await Sensor.find({'name' : sensorJSON.name, 'arduinoID' : sensorJSON.arduinoID}).exec();
+            if (sensor.length === 0) {
+                sensor = await Sensor.create(sensorJSON);
+            }
+            ids.push(sensor._id);
+        }
         //const sensors = await Sensor.insertMany(req.body.sensors);
-        res.status(200).json(arduinoID);
+        res.status(200).json(ids);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });

@@ -9,11 +9,13 @@ const arduinoSchema = new Schema({
 });
 
 const sensorSchema = new Schema({
+    name: String,
     sensorType: String,
     pin: Number,
     variable: String,
     unit: String,
-    description: String
+    description: String,
+    arduinoID: Schema.Types.ObjectId
 });
 
 const Arduino = mongoose.model("Arduino", arduinoSchema);
