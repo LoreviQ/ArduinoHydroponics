@@ -37,7 +37,7 @@ app.post("/setup", async (req, res) => {
         }
         //const sensors = await Sensor.insertMany(req.body.sensors);
         */
-        res.status(200).json(arduinoFind);
+        res.status(200).json(arduinoJSON);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
