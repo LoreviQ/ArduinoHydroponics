@@ -1,6 +1,7 @@
 const { INSPECT_MAX_BYTES } = require("buffer");
 const { getUnpackedSettings } = require("http2");
 const mongoose = require("mongoose");
+const internal = require("stream");
 const { Schema } = mongoose;
 
 const arduinoSchema = new Schema({
@@ -11,14 +12,18 @@ const arduinoSchema = new Schema({
 const sensorSchema = new Schema({
     name: String,
     sensorType: String,
-    pin: Number,
     variable: String,
     unit: String,
-    description: String,
     arduinoID: Schema.Types.ObjectId
+});
+
+const readingSchema = new Schema({
+    value: Number,
+    sensorID: Schema.Types.ObjectId
 });
 
 const Arduino = mongoose.model("Arduino", arduinoSchema);
 const Sensor = mongoose.model("Sensor", sensorSchema);
+const Reading = mongoose.model("Reading", readingSchema);
 
-module.exports = { Arduino, Sensor };
+module.exports = { Arduino, Sensor, Reading };
