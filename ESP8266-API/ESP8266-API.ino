@@ -10,7 +10,7 @@
 #include "env.h"
 
 APIHandler API("http://35.176.73.55/");
-serialStr strReader;
+serialStr strReader(&Serial, '\n', 256);
 int now = millis(), timer = millis();
 
 void setup() {
@@ -27,16 +27,26 @@ void loop() {
 }
 
 void serialHandler(char* inStr) {
-  Serial.println(String("Recieved : ") + String(inStr));
-  StaticJsonDocument<64> command;
-  DeserializationError err = deserializeJson(command, inStr);
+  StaticJsonDocument<256> request;
+  DeserializationError err = deserializeJson(request, inStr);
   if (err) {
     Serial.print(F("deserializeJson() failed with code "));
     Serial.println(err.f_str());
-  }
-  if (command["method"] == "GET") {
-    String response = API.get(command["endpoint"]);
-    Serial.println("Printing response from Server");
-    Serial.println(response);
+  } else {
+    if (request["method"] == "GET") {
+      // Make request
+      String response = API.get(request["endpoint"]);
+
+      //Pass on server response
+      Serial.println("Printing response from Server");
+      Serial.println(response);
+    } else if (request["method"] == "POST") {
+      // Make request
+      String response = API.post(request["endpoint"], request["body"]);
+      // Create and send Response
+      Serial.println("ID: " + response);
+    } else {
+      Serial.println("Invalid JSON");
+    }
   }
 }

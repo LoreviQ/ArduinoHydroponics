@@ -26,5 +26,5 @@ void OTASetup() {
     Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-    Serial.println("This was prgrammed OTA - Version 1.1.3");
+    Serial.println("This was prgrammed OTA - Version 1.2.3");
 }
