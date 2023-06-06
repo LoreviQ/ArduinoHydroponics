@@ -2,6 +2,7 @@
 #include <SoftwareSerial.h>
 #include <serialStr.h>
 #include <DHT.h>
+#include "env.h"
 
 SoftwareSerial espSerial(12, 13); // TX, RX
 SoftwareSerial CO2Serial(4, 3); // TX, RX
@@ -13,7 +14,7 @@ char DHT1sensorID[25] = "null";
 char DHT2sensorID[25] = "null"; 
 char LDRsensorID[25] = "null";
 char *ids[] = {arduinoID, DHT1sensorID, DHT2sensorID, LDRsensorID};
-char *names[] = {"OJ-test", "DHT22-Temp", "DHT22-Hum", "LDR"};
+char *names[] = {ARDUINO_NAME, "DHT22-Temp", "DHT22-Hum", "LDR"};
 char *types[] = {"Arduino", "DHT22", "DHT22", "LDR"};
 char *variables[] = {"null", "Temperature", "Humidity", "Resistance"};
 char *units[] = {"null", "Centigrade", "Percent", "Ohms"};
@@ -25,7 +26,6 @@ void setup() {
   strReader.setCallback(espSerialHandler);
   Serial.begin(9600);
   espSerial.begin(74880);
-  CO2Serial.begin(9600);
   espSerial.println();
   dht.begin();
 }

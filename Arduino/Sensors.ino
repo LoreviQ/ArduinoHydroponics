@@ -1,5 +1,5 @@
 void collectData() {
-  bool setRandom = true;
+  bool setRandom = RANDOM_SENSORS;
   int DHTtemp;
   int DHThum;
   int LDRres;
@@ -15,6 +15,7 @@ void collectData() {
     DHThum = int(dht.readHumidity());
     LDRres = analogRead(0);
     // CO2
+    CO2Serial.begin(9600);
     byte CO2message[] = {0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79}; // command to get CO2 value
     CO2Serial.write(CO2message, sizeof(CO2message));
     while (CO2Serial < 9) {
@@ -27,7 +28,7 @@ void collectData() {
         Serial.println(CO2char);
       }
     }
-    
+    espSerial.begin(74880);
   }
 
   int readings[] = {DHTtemp, DHThum, LDRres};
