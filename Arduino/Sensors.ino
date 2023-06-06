@@ -15,23 +15,20 @@ void collectData() {
     DHThum = int(dht.readHumidity());
     LDRres = analogRead(0);
     // CO2
-    CO2Serial.begin(9600);
-    byte CO2message[] = {0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79}; // command to get CO2 value
-    CO2Serial.write(CO2message, sizeof(CO2message));
-    while (CO2Serial < 9) {
-      idle();
-    }
-    for (int i = 0; i < 9; i++) {
-      if (i == 0) {
-        byte CO2char = CO2Serial.read();
-        Serial.print("Recieved following byte from CO2 reader: ");
-        Serial.println(CO2char);
+    mhzSerial.begin(9600);
+    if (mhz19b.isReady()) {
+      CO2 = mhz19b.readCO2();
+    } else {
+      Serial.println(F("CO2 sensor not yet ready..."));
+      if (mhz19b.isWarmingUp()) {
+        Serial.println(F("CO2 sensor still warming up..."));
       }
+      CO2 = -1;
     }
     espSerial.begin(74880);
   }
 
-  int readings[] = {DHTtemp, DHThum, LDRres};
+  int readings[] = {DHTtemp, DHThum, LDRres, CO2};
   size_t numReadings = sizeof(readings) / sizeof(readings[0]);
   // Send data 2 readings at a time with 2 secs inbetween;
   for (int i=0; i < numReadings; i = i + 2) {
@@ -54,6 +51,5 @@ void collectData() {
       idle();
       nowR = millis();
     }
-
   }
 }

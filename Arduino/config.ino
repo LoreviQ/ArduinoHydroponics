@@ -21,12 +21,12 @@ void initializeArduino() {
         JSONbody["arduinoID"] = arduinoID;
         JSONbody["name"] = names[i];
         JSONbody["sensorType"] = types[i];
-        JSONbody["variable"] = variables[i];
-        JSONbody["unit"] = units[i];
+        //JSONbody["variable"] = variables[i];
+        //JSONbody["unit"] = units[i];
         // Sending JSON
         sendToESP(JSONrequest); 
         break;
-      } else if (i == 3) {
+      } else if (i == numDevices-1) {
         initComplete = true; // Stop initialization
       }
     } 
