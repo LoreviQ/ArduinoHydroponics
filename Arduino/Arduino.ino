@@ -1,6 +1,7 @@
 #include <ArduinoJson.h>
 #include <SoftwareSerial.h>
 #include <serialStr.h>
+#include <DHT.h>
 
 SoftwareSerial espSerial(12, 13);
 serialStr strReader(&espSerial, '\n', 256);
@@ -17,11 +18,14 @@ char *variables[] = {"null", "Temperature", "Humidity", "Resistance"};
 char *units[] = {"null", "Centigrade", "Percent", "Ohms"};
 const size_t numDevices = sizeof(ids) / sizeof(ids[0]);
 
+DHT dht (2, DHT22); // Setup DHT Sensor for pin 2
+
 void setup() {
   strReader.setCallback(espSerialHandler);
   Serial.begin(9600);
   espSerial.begin(74880);
   espSerial.println();
+  dht.begin();
 }
 
 void loop() {
