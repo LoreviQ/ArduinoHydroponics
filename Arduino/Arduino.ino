@@ -3,7 +3,8 @@
 #include <serialStr.h>
 #include <DHT.h>
 
-SoftwareSerial espSerial(12, 13);
+SoftwareSerial espSerial(12, 13); // TX, RX
+SoftwareSerial CO2Serial(4, 3); // TX, RX
 serialStr strReader(&espSerial, '\n', 256);
 int now = millis(), timer = millis();
 bool initComplete = false;
@@ -24,6 +25,7 @@ void setup() {
   strReader.setCallback(espSerialHandler);
   Serial.begin(9600);
   espSerial.begin(74880);
+  CO2Serial.begin(9600);
   espSerial.println();
   dht.begin();
 }
