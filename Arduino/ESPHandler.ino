@@ -6,7 +6,7 @@ void espSerialHandler(const char* inStr) {
     if (strncmp(inStr, "ID: ", 3) == 0) {
       for (int i=0; i<numDevices; i++) {
         if (strcmp(ids[i], "null") == 0){ 
-          memcpy(ids[i], &inStr[5], 24);
+          memcpy(ids[i], &inStr[4], 24);
           break;
         }
       }

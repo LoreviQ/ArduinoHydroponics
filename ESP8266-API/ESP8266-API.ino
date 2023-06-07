@@ -42,9 +42,9 @@ void serialHandler(char* inStr) {
       Serial.println(response);
     } else if (request["method"] == "POST") {
       // Make request
-      String response = API.post(request["endpoint"], request["body"]);
+      String response[] = API.post(request["endpoint"], request["body"]);
       // Create and send Response
-      Serial.println("ID: " + response);
+      Serial.println(response);
     } else {
       Serial.println("Invalid JSON");
     }
