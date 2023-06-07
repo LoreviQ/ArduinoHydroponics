@@ -21,7 +21,7 @@ app.post("/setup/arduino", async (req, res) => {
         if (!arduino) {
             arduino = await Arduino.create(req.body);
         }
-        res.status(200).json("ID: " + arduino._id);
+        res.status(200).send("ID: " + arduino._id);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
@@ -37,7 +37,7 @@ app.post("/setup/sensor", async (req, res) => {
         if (!sensor) {
             sensor = await Sensor.create(req.body);
         }
-        res.status(200).json("ID: " + sensor._id);
+        res.status(200).send("ID: " + sensor._id);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
