@@ -1,37 +1,37 @@
 void collectData() {
   bool setRandom = RANDOM_SENSORS;
-  int DHTtemp;
-  int DHThum;
-  int LDRres;
-  int CO2;
-  // Get Data
-  if (setRandom == true) {
-    DHTtemp = random(10,40);
-    DHThum = random(50,100);
-    LDRres = random(100,300);
-    CO2 = random(30,200);
-  } else {
-    DHTtemp = int(dht.readTemperature());
-    DHThum = int(dht.readHumidity());
-    LDRres = analogRead(0);
+  int readings[numDevices-1]; // DHT22-Temp, DHT22-Hum, LDR, CO2, Turbidity
+
+  if (setRandom == true) { //Random Data
+    readings[0] = random(10,40); // DHT22-Temp
+    readings[1] = random(50,100); // DHT22-Hum
+    readings[2] = random(100,300); // LDR
+    readings[3] = random(30,200); // CO2
+    readings[4] = random(30,200); // Turbidity
+  } 
+
+  // Get Data from Sensors
+  else {
+    readings[0] = int(dht.readTemperature()); // DHT22-Temp
+    readings[1] = int(dht.readHumidity()); // DHT22-Hum
+    readings[2] = analogRead(0); // LDR
+    readings[4] = analogRead(1); // Turbidity
     // CO2
     mhzSerial.begin(9600);
     if (mhz19b.isReady()) {
-      CO2 = mhz19b.readCO2();
+      readings[3] = mhz19b.readCO2();
     } else {
       Serial.println(F("CO2 sensor not yet ready..."));
       if (mhz19b.isWarmingUp()) {
         Serial.println(F("CO2 sensor still warming up..."));
       }
-      CO2 = -1;
+      readings[3] = -1;
     }
     espSerial.begin(74880);
   }
-
-  int readings[] = {DHTtemp, DHThum, LDRres, CO2};
-  size_t numReadings = sizeof(readings) / sizeof(readings[0]);
+  
   // Send data 2 readings at a time with 2 secs inbetween;
-  for (int i=0; i < numReadings; i = i + 2) {
+  for (int i=0; i < numDevices-1; i = i + 2) {
     StaticJsonDocument<256> JSONrequest;
     JSONrequest["method"] = "POST";
     JSONrequest["endpoint"] = "reading";
@@ -39,7 +39,7 @@ void collectData() {
     JsonObject reading1 = JSONbody.createNestedObject();
     reading1["sensorID"] = ids[i+1];
     reading1["value"] = readings[i];
-    if (i+1 != numReadings) {
+    if (i+1 != numDevices-1) {
       JsonObject reading2 = JSONbody.createNestedObject();
       reading2["sensorID"] = ids[i+2];
       reading2["value"] = readings[i+1];
