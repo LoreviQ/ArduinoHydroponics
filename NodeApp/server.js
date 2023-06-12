@@ -6,6 +6,8 @@ const port = 8000;
 
 const { Arduino, Sensor, Reading } = require("./models/test");
 
+// fetches root files from client/build
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
