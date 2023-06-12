@@ -1,3 +1,4 @@
 .vscode/
 ESP8266-API/env.h
 Arduino/env.h
+NodeApp/node_modules/
