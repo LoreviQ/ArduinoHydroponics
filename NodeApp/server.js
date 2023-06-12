@@ -12,8 +12,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-    res.send(path.join(__dirname, "build", "index.html"));
-    //res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Setup endpoint that arduino calls on boot.
