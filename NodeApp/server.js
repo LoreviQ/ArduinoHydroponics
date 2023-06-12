@@ -9,7 +9,7 @@ const { Arduino, Sensor, Reading } = require("./models/test");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Setup endpoint that arduino calls on boot.
