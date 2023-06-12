@@ -1,28 +1,31 @@
 void initializeArduino() {
   StaticJsonDocument<256> JSONrequest;
-  if (strcmp(arduinoID, "null") == 0) { // Setup Arduino
-    Serial.println("Initializing Arduino");
+  // Setup Arduino
+  if (strcmp(arduinoID, "null") == 0) { 
+    Serial.println(F("Initializing Arduino"));
     // Creating JSON
     JSONrequest["method"] = "POST";
     JSONrequest["endpoint"] = "setup/arduino";
     JsonObject JSONbody = JSONrequest.createNestedObject("body");
-    JSONbody["name"] = names[0];
+    strcpy_P(buffer, (char*)pgm_read_word(&(names[0])));
+    JSONbody["name"] = buffer;
     // Sending JSON
     sendToESP(JSONrequest); 
   } else { 
-    for (int i=1; i < numDevices; i++) { // Setup Sensors
+    // Setup Sensors
+    for (int i=1; i < numDevices; i++) {
       if (strcmp(ids[i], "null") == 0){ 
-        Serial.print("Initializing Sensor ");
+        Serial.print(F("Initializing Sensor "));
         Serial.println(i);
         // Creating JSON
         JSONrequest["method"] = "POST";
         JSONrequest["endpoint"] = "setup/sensor";
         JsonObject JSONbody = JSONrequest.createNestedObject("body");
         JSONbody["arduinoID"] = arduinoID;
-        JSONbody["name"] = names[i];
-        JSONbody["sensorType"] = types[i];
-        //JSONbody["variable"] = variables[i];
-        //JSONbody["unit"] = units[i];
+        strcpy_P(buffer, (char*)pgm_read_word(&(names[i])));
+        JSONbody["name"] = buffer;
+        strcpy_P(buffer, (char*)pgm_read_word(&(types[i-1])));
+        JSONbody["sensorType"] = buffer;
         // Sending JSON
         sendToESP(JSONrequest); 
         break;

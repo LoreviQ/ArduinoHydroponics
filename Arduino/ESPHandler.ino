@@ -1,5 +1,5 @@
 void espSerialHandler(const char* inStr) {
-  Serial.print("From ESP: ");
+  Serial.print(F("From ESP: "));
   Serial.println(inStr);
 
   if (!initComplete) {
@@ -17,7 +17,7 @@ void espSerialHandler(const char* inStr) {
 void sendToESP(StaticJsonDocument<256> JSONrequest) {
   char request[256];
   serializeJson(JSONrequest, request);
-  Serial.print("Sending JSON: ");
+  Serial.print(F("Sending JSON: "));
   Serial.println(request);
   espSerial.println(request);
 }

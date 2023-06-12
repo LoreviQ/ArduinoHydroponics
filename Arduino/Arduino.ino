@@ -43,6 +43,7 @@ void loop() {
   now = millis();
   idle();
   if (now - timer >= 30000) {
+    Serial.println(F("Collecting Data"));
     collectData();
     timer = now;    
   }
