@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 // fetches root files from client/build
-//app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // May only be exist once in app
 mongoose.connect("mongodb://testUser:testPassword@localhost:27017/test", { useNewUrlParser: true });

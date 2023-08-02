@@ -1,0 +1,21 @@
+{
+  "name": "ec2",
+  "version": "1.0.0",
+  "description": "App to add / fetch data from mongoose serve and display control panel",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoreviQ/ArduinoHydroponics"
+  },
+  "author": "Oliver Jay",
+  "license": "ISC",
+  "homepage": "https://github.com/LoreviQ/ArduinoHydroponics#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "mongoose": "^5.4.15",
+    "nodemon": "2.0.3"
+  }
+}

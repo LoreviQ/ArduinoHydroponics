@@ -1,15 +1,19 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
+const path = require("path");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const port = 8000;
 
 const { Arduino, Sensor, Reading } = require("./models/test");
 
+// fetches root files from client/build
+app.use(express.static("public"));
 app.use(bodyParser.json());
 
+// Website
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Setup endpoint that arduino calls on boot.
