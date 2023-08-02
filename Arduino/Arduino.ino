@@ -13,16 +13,20 @@ bool initComplete = false;
 int now = millis(), timer = millis();
 
 // Setting up sensors
-DHT dht (2, DHT22); // Setup DHT Sensor for pin 2
-SoftwareSerial mhzSerial(4, 3); // TX, RX
-ErriezMHZ19B mhz19b(&mhzSerial); // CO2 sensor connected to mhzSerial connection
+DHT dht1 (2, DHT22); // Setup DHT Sensor for pin 2
+DHT dht2 (3, DHT22); // Setup DHT Sensor for pin 2
+SoftwareSerial mhzSerial1(6, 7); // TX, RX
+ErriezMHZ19B mhz19b1(&mhzSerial1); // CO2 sensor connected to mhzSerial connection
+SoftwareSerial mhzSerial2(8, 9); // TX, RX
+ErriezMHZ19B mhz19b2(&mhzSerial2); // CO2 sensor connected to mhzSerial connection
 
 void setup() {
   strReader.setCallback(espSerialHandler);
   Serial.begin(9600);
   espSerial.begin(74880);
   espSerial.println();
-  dht.begin();
+  dht1.begin();
+  dht2.begin();
   while (!initComplete) {
     idle();
     now = millis();

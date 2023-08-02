@@ -8,24 +8,39 @@ void collectData() {
     readings[2] = random(100,300); // LDR
     readings[3] = random(30,200); // CO2
     readings[4] = random(30,200); // Turbidity
+    readings[5] = random(100,300); // LDR
+    readings[6] = random(30,200); // CO2
+    readings[7] = random(30,200); // Turbidity
   } 
 
   // Get Data from Sensors
   else {
     readings[0] = int(dht.readTemperature()); // DHT22-Temp
     readings[1] = int(dht.readHumidity()); // DHT22-Hum
-    readings[2] = analogRead(0); // LDR
-    readings[4] = analogRead(1); // Turbidity
+    readings[2] = int(dht.readTemperature()); // DHT22-Temp
+    readings[3] = int(dht.readHumidity()); // DHT22-Hum
+    readings[4] = analogRead(0); // LDR1
+    readings[5] = analogRead(1); // LDR2
     // CO2
-    mhzSerial.begin(9600);
-    if (mhz19b.isReady()) {
-      readings[3] = mhz19b.readCO2();
+    mhzSerial1.begin(9600);
+    if (mhz19b1.isReady()) {
+      readings[6] = mhz19b1.readCO2();
     } else {
       Serial.println(F("CO2 sensor not yet ready..."));
-      if (mhz19b.isWarmingUp()) {
+      if (mhz19b1.isWarmingUp()) {
         Serial.println(F("CO2 sensor still warming up..."));
       }
-      readings[3] = -1;
+      readings[6] = -1;
+    }
+    mhzSerial2.begin(9600);
+    if (mhz19b2.isReady()) {
+      readings[6] = mhz19b2.readCO2();
+    } else {
+      Serial.println(F("CO2 sensor not yet ready..."));
+      if (mhz19b2.isWarmingUp()) {
+        Serial.println(F("CO2 sensor still warming up..."));
+      }
+      readings[6] = -1;
     }
     espSerial.begin(74880);
   }
